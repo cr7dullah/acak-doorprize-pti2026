@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Doorprize Pekan Tuli Internasional 2026</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#f5fbff,#fff);color:#111}
+
+/* Header & Banner Logo */
+header{text-align:center;padding:25px 15px 10px}
+.banner-logo{
+  width:100%;
+  max-width:850px;
+  height:auto;
+  object-fit:contain;
+  margin:0 auto 15px;
+  display:block;
+}
+
+/* Judul Atas, Tengah, Bawah */
+.judul-atas{font-size:18px;font-weight:700;color:#333;margin-top:5px;letter-spacing:1px}
+.judul-tengah{font-size:26px;font-weight:900;color:#0d47a1;margin:8px 0;letter-spacing:1.5px}
+.judul-bawah{font-size:42px;font-weight:900;color:#d32f2f;margin:15px 0 5px;letter-spacing:2px}
+
+.subtitle{font-size:18px;font-weight:600;margin-bottom:25px;color:#555}
+
+/* Container Kartu Undian */
+.card{max-width:900px;margin:10px auto 30px;background:#fff;border-radius:24px;padding:28px 20px 30px;box-shadow:0 8px 30px rgba(0,0,0,0.12);text-align:center}
+
+/* Digit Angka */
+.numbers{display:flex;justify-content:center;gap:18px;margin:10px 0 28px}
+.num{width:170px;height:180px;border-radius:20px;background:#292929;color:#ff1515;display:flex;align-items:center;justify-content:center;font-size:125px;font-weight:800;box-shadow:inset 0 0 0 3px #444,0 8px 15px #aaa;text-shadow:2px 3px 2px #111}
+.num.flash{transform:scale(1.04)}
+
+/* Tombol Utama */
+button{border:0;border-radius:14px;padding:18px 72px;font-size:31px;font-weight:800;background:#55c97d;color:#fff;cursor:pointer;box-shadow:0 6px 0 #2c8050;transition:all 0.1s ease}
+button:hover{filter:brightness(1.05)}
+button:active{transform:translateY(4px);box-shadow:0 2px 0 #2c8050}
+button:disabled{opacity:.55;cursor:not-allowed}
+
+.status{font-size:17px;font-weight:700;margin:20px 0 10px}
+.history-title{font-size:18px;font-weight:700;margin:20px 0 8px;text-align:left}
+.history{min-height:72px;border:2px dashed #ccc;border-radius:14px;padding:10px;text-align:left}
+.history span{display:inline-block;background:#f0f0f0;border-radius:8px;padding:8px 12px;margin:5px;font-weight:800;border:1px solid #ddd}
+
+/* Pengaturan */
+.settings{display:flex;justify-content:center;gap:25px;margin:28px 0 8px}
+label{font-size:16px;font-weight:700;display:flex;flex-direction:column;gap:7px;text-align:left}
+input{width:180px;padding:12px;border:1px solid #bbb;border-radius:9px;font-size:18px}
+.reset{margin-top:18px;background:#777;padding:10px 25px;font-size:16px;box-shadow:none}
+
+/* Pop-up Pemenang */
+.winner{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);align-items:center;justify-content:center;padding:20px;z-index:100}
+.winner.show{display:flex}
+.winnerbox{background:#fff;border-radius:25px;padding:35px;max-width:600px;width:100%;text-align:center;box-shadow:0 15px 45px rgba(0,0,0,0.5)}
+.winnerbox h2{font-size:30px;margin:0 0 15px;color:#222}
+.winnernumber{font-size:110px;font-weight:900;color:#e00;letter-spacing:8px}
+.close{background:#555;font-size:18px;padding:12px 30px;box-shadow:none;margin-top:15px}
+
+footer{text-align:center;color:#777;padding:22px;font-size:14px}
+
+/* Responsive Mobile */
+@media(max-width:650px){
+ .banner-logo{max-width:100%}
+ .judul-atas{font-size:14px}
+ .judul-tengah{font-size:20px}
+ .judul-bawah{font-size:32px}
+ .card{margin:0 10px;padding:20px 12px}
+ .numbers{gap:8px}
+ .num{width:95px;height:115px;font-size:72px;border-radius:14px}
+ button{font-size:25px;padding:15px 48px}
+ .settings{gap:10px}
+ .settings input{width:140px}
+ .winnernumber{font-size:75px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <!-- Barisan Logo Terpadu -->
+  <img class="banner-logo" src="Recovered_UNTITLED-1_2.png" alt="Logo Penyelenggara dan Pendukung Pekan Tuli Internasional">
+  
+  <!-- Structure Judul -->
+  <div class="judul-atas">DPC GERKATIN KABUPATEN BANYUWANGI</div>
+  <div class="judul-tengah">PEKAN TULI INTERNASIONAL 2026</div>
+</header>
+
+<main class="card">
+  <div class="judul-bawah">DOORPRIZE</div>
+  <div class="subtitle">ACAK NOMOR PESERTA</div>
+
+  <div class="numbers">
+    <div class="num" id="n1">0</div>
+    <div class="num" id="n2">0</div>
+    <div class="num" id="n3">0</div>
+  </div>
+
+  <button id="acakBtn" onclick="acak()">ACAK</button>
+  <div class="status" id="status">Siap mengundi</div>
+
+  <div class="history-title">Angka Sudah Keluar</div>
+  <div class="history" id="history">Belum ada nomor yang keluar.</div>
+
+  <div class="settings">
+    <label>Jumlah Doorprize
+      <input id="jumlahDoorprize" type="number" min="1" value="24">
+    </label>
+    <label>Jumlah Hadirin
+      <input id="jumlahHadirin" type="number" min="1" value="79">
+    </label>
+  </div>
+  <button class="reset" onclick="resetUndian()">RESET UNDIAN</button>
+</main>
+
+<footer>DPC GERKATIN Kabupaten Banyuwangi • Pekan Tuli Internasional 2026</footer>
+
+<!-- Pop-up Pemenang -->
+<div class="winner" id="winner">
+  <div class="winnerbox">
+    <h2>🎉 PEMENANG DOORPRIZE 🎉</h2>
+    <div class="winnernumber" id="winnerNumber">000</div>
+    <button class="close" onclick="tutupPemenang()">LANJUT ACAK</button>
+  </div>
+</div>
+
+<script>
+let hasil = [];
+let sedang = false;
+
+const $ = id => document.getElementById(id);
+
+function jumlahHadirin(){ return Math.max(1, Number($("jumlahHadirin").value) || 79); }
+function jumlahDoorprize(){ return Math.max(1, Number($("jumlahDoorprize").value) || 24); }
+
+function tampilkan(angka){
+ const s = String(angka).padStart(3, "0");
+ $("n1").textContent = s[0]; 
+ $("n2").textContent = s[1]; 
+ $("n3").textContent = s[2];
+ document.querySelectorAll(".num").forEach(x => {
+   x.classList.add("flash");
+   setTimeout(() => x.classList.remove("flash"), 100);
+ });
+}
+
+function acak(){
+ if(sedang) return;
+ if(hasil.length >= Math.min(jumlahDoorprize(), jumlahHadirin())){
+   $("status").textContent = "Semua doorprize sudah diundi.";
+   return;
+ }
+ sedang = true; 
+ $("acakBtn").disabled = true; 
+ $("status").textContent = "Sedang mengacak...";
+ 
+ let target;
+ do {
+   target = Math.floor(Math.random() * jumlahHadirin()) + 1;
+ } while(hasil.includes(target));
+
+ let start = Date.now();
+ let timer = setInterval(() => {
+   tampilkan(Math.floor(Math.random() * jumlahHadirin()) + 1);
+   if(Date.now() - start > 1200){
+     clearInterval(timer);
+     tampilkan(target);
+     hasil.push(target);
+     tambahRiwayat(target);
+     $("winnerNumber").textContent = String(target).padStart(3, "0");
+     $("winner").classList.add("show");
+     $("status").textContent = "Nomor pemenang sudah keluar.";
+     sedang = false;
+   }
+ }, 65);
+}
+
+function tambahRiwayat(n){
+ const box = $("history");
+ if(hasil.length === 1) box.innerHTML = "";
+ const s = document.createElement("span");
+ s.textContent = String(n).padStart(3, "0");
+ box.appendChild(s);
+}
+
+function tutupPemenang(){
+ $("winner").classList.remove("show");
+ $("acakBtn").disabled = hasil.length >= Math.min(jumlahDoorprize(), jumlahHadirin());
+}
+
+function resetUndian(){
+ if(sedang) return;
+ hasil = []; 
+ tampilkan(0); 
+ $("history").innerHTML = "Belum ada nomor yang keluar.";
+ $("status").textContent = "Siap mengundi"; 
+ $("acakBtn").disabled = false;
+}
+
+$("jumlahHadirin").addEventListener("change", resetUndian);
+$("jumlahDoorprize").addEventListener("change", resetUndian);
+</script>
+</body>
+</html>
